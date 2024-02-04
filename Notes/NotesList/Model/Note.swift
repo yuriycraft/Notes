@@ -34,16 +34,17 @@ final class Note {
             self.attributedTextData = try attributedText.data(from: NSRange(location: 0,
                                                                             length: attributedText.length),
                                                               documentAttributes: [.documentType: NSMutableAttributedString.DocumentType.rtfd])
-            let range = NSRange(location: 0, length: 15)
-            let text = attributedText.attributedSubstring(from: range)
-            if text.length > 0 {
-          
-                let str = text.string.replacingOccurrences(of: "  ", with: "")
-                    .replacingOccurrences(of: "\n", with: "")
-                
-                self.title = str
+            if attributedText.length > 15 {
+                let range = NSRange(location: 0, length: 15)
+                let text = attributedText.attributedSubstring(from: range)
+                if text.length > 0 {
+                    
+                    let str = text.string.replacingOccurrences(of: "  ", with: "")
+                        .replacingOccurrences(of: "\n", with: "")
+                    
+                    self.title = str
+                }
             }
-            
         } catch {
             print("Error encoding NSAttributedString: \(error)")
         }
