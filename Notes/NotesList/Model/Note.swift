@@ -30,21 +30,24 @@ final class Note {
     }
 
     func setAttributedText(_ attributedText: NSMutableAttributedString) {
+        if attributedText.length > 15 {
+            let range = NSRange(location: 0, length: 15)
+            let text = attributedText.attributedSubstring(from: range)
+            if text.length > 0 {
+                let str = text
+                    .string  
+                    .replacingOccurrences(of: "\n", with: "")
+                    .replacingOccurrences(of: "  ", with: " ")
+                   
+                
+                self.title = str
+            }
+        }
         do {
-            self.attributedTextData = try attributedText.data(from: NSRange(location: 0,
+           self.attributedTextData = try attributedText.data(from: NSRange(location: 0,
                                                                             length: attributedText.length),
                                                               documentAttributes: [.documentType: NSMutableAttributedString.DocumentType.rtfd])
-            if attributedText.length > 15 {
-                let range = NSRange(location: 0, length: 15)
-                let text = attributedText.attributedSubstring(from: range)
-                if text.length > 0 {
-                    
-                    let str = text.string.replacingOccurrences(of: "  ", with: "")
-                        .replacingOccurrences(of: "\n", with: "")
-                    
-                    self.title = str
-                }
-            }
+
         } catch {
             print("Error encoding NSAttributedString: \(error)")
         }

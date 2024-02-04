@@ -43,7 +43,7 @@ struct CustomTextEditor: UIViewControllerRepresentable {
         setUpTextView()
         textView.delegate = context.coordinator
         textView.delegate?.textViewDidChange!(textView)
-        textView.font = UIFont.systemFont(ofSize: FontSize.regular.rawValue)
+//        textView.font = UIFont.systemFont(ofSize: FontSize.regular.rawValue)
         accessoryView.delegate = context.coordinator
         textView.inputAccessoryView = accessoryView
     
@@ -51,7 +51,10 @@ struct CustomTextEditor: UIViewControllerRepresentable {
     }
     
     func updateUIViewController(_ uiViewController: UIViewController, context: Context) {
-        accessoryView.frame = CGRect(x: 0, y: -uiViewController.view.safeAreaInsets.bottom, width: 0, height: 48 + uiViewController.view.safeAreaInsets.bottom)
+        accessoryView.frame = CGRect(x: 0,
+                                     y: -uiViewController.view.safeAreaInsets.bottom, 
+                                     width: 0,
+                                     height: 48 + uiViewController.view.safeAreaInsets.bottom)
     }
     
     func makeCoordinator() -> Coordinator {
@@ -147,8 +150,9 @@ extension Coordinator: CustomInputAccessoryViewDelegate {
     }
     
     func fontButtonTapped(currentSize: FontSize) {
+        let newSize = currentSize.rawValue == FontSize.regular.rawValue ? FontSize.large : FontSize.regular
         changeFontAttributes(fontStyle: .stillCurrent,
-                             fontSize: currentSize)
+                             fontSize: newSize)
     }
     
     func changeFontAttributes(fontStyle: FontStyle, fontSize: FontSize) {
@@ -163,10 +167,10 @@ extension Coordinator: CustomInputAccessoryViewDelegate {
             font = getFontForWeight(weight: currentFontWeight, size: defaultFontSize)
         }
     
-        let defaultFont = UIFont.systemFont(ofSize: fontSize.rawValue)
+        let defaultFont = font ?? UIFont.systemFont(ofSize: defaultFontSize)
         applyTextAttributes(type: UIFont.self,
                             key: .font,
-                            value: font ?? UIFont.systemFont(ofSize: defaultFontSize),
+                            value: defaultFont,
                             defaultValue: defaultFont)
     }
     
@@ -202,7 +206,8 @@ extension Coordinator: CustomInputAccessoryViewDelegate {
     
     private func getFontSize(attributes: [NSAttributedString.Key: Any]) -> CGFloat {
         if let value = attributes[.font] as? UIFont {
-            return value.pointSize
+            let fontSize = CTFontGetSize(attributes[.font] as! CTFont)
+            return fontSize
         } else {
             return FontSize.regular.rawValue
         }

@@ -175,9 +175,6 @@ class CustomInputAccessoryView: UIView {
     }
 
     @objc private func fontSizeButtonTapped(currentSize: CGFloat) {
-        selectedFontSize = selectedFontSize == .large ? .regular : .large
-        let title = "\(selectedFontSize.rawValue)"
-        fontSizeButton.setTitle(title, for: .normal)
         delegate?.fontButtonTapped(currentSize: selectedFontSize)
     }
 
@@ -189,7 +186,8 @@ class CustomInputAccessoryView: UIView {
         if attributeValue is UIFont {
             let fontSize = CTFontGetSize(attributeValue as! CTFont)
             let fontTraits = CTFontGetSymbolicTraits(attributeValue as! CTFont)
-            let title = "\(fontSize)"
+            selectedFontSize = fontSize == FontSize.regular.rawValue ? FontSize.regular : FontSize.large
+            let title = "\(selectedFontSize.rawValue)"
             fontSizeButton.setTitle(title, for: .normal)
             let isBold = fontTraits.contains(.traitBold)
             let isItalic = fontTraits.contains(.traitItalic)
