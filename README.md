@@ -1,6 +1,8 @@
-Прототип приложения на iOS - Notes
+# Прототип приложения на iOS - Notes
+<img src="https://github.com/yuriycraft/Notes/blob/7ed70c1268cc62c67e6c154f1adec6acf67efa88/Simulator%20Screen.gif" alt="Превью приложения" height="480" width="240" /> <img src="https://github.com/yuriycraft/Notes/blob/7ed70c1268cc62c67e6c154f1adec6acf67efa88/Simulator%20Screenshot1.png" alt="Превью приложения" height="480" width="240"/> <img src="https://github.com/yuriycraft/Notes/blob/7ed70c1268cc62c67e6c154f1adec6acf67efa88/Simulator%20Screenshot2.png" alt="Превью приложения" height="480" width="240" /> <img src="https://github.com/yuriycraft/Notes/blob/7ed70c1268cc62c67e6c154f1adec6acf67efa88/Simulator%20Screenshot3.png" height="480" width="240" />
 
-Описание:
+
+# Описание:
 1. **Одиночная заметка:**
    - Возможность создания простых заметок с текстовым содержанием.
    - Редактирование заметок внутри собственного приложения.
