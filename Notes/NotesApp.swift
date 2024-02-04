@@ -5,14 +5,14 @@
 //  Created by Lol Kek on 30/01/2024.
 //
 
-import SwiftUI
 import SwiftData
+import SwiftUI
 
 @main
 struct NotesApp: App {
     var sharedModelContainer: ModelContainer = {
         let schema = Schema([
-            Item.self,
+            Note.self,
         ])
         let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
 
@@ -25,8 +25,9 @@ struct NotesApp: App {
 
     var body: some Scene {
         WindowGroup {
-            ContentView()
-        }
-        .modelContainer(sharedModelContainer)
+            let itemDataSource = ItemDataSource<Note>(modelContext: sharedModelContainer.mainContext)
+            let viewModel = NotesListViewModel(dataSource: itemDataSource)
+            NotesListView(viewModel: viewModel)
+        }.modelContainer(sharedModelContainer)
     }
 }
