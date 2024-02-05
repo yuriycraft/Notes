@@ -46,8 +46,4 @@ final class NotesListViewModel: ObservableObject {
     func fetchNotes() {
         notes = dataSource.fetchItems(sortDesc)
     }
-
-    func forceSaveAllData() {
-        dataSource.forceSave()
-    }
 }

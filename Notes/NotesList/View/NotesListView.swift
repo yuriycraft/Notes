@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import TextEditor
 import UIKit
 
 struct NotesListView: View {
@@ -22,8 +21,7 @@ struct NotesListView: View {
                             },
                             set: { newText in
                                 item.setAttributedText(newText)
-                            }),
-                        placeholder: "")
+                            }))
                     } label: {
                         Text("\(item.title) \n \(item.timestamp, format: Date.FormatStyle(date: .numeric, time: .standard))")
                             .lineLimit(2)

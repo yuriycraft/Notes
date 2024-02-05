@@ -9,14 +9,9 @@ import SwiftUI
 
 final class Coordinator: NSObject, UINavigationControllerDelegate {
     var parent: CustomTextEditor
-    var fontName: String
-    
-    fileprivate var isBold = false
-    fileprivate var isItalic = false
     
     init(_ parent: CustomTextEditor) {
         self.parent = parent
-        self.fontName = parent.defaultFontName
     }
 }
 
@@ -27,15 +22,10 @@ struct CustomTextEditor: UIViewControllerRepresentable {
     fileprivate var textView: UITextView
     fileprivate var accessoryView: CustomInputAccessoryView
     
-    fileprivate let placeholder: String
-    fileprivate let placeholderColor = UIColor.placeholderText
-    fileprivate let defaultFontName = UIFont.systemFont(ofSize: 17.0).fontName
-    
-    init(attributedText: Binding<NSMutableAttributedString>, placeholder: String) {
+    init(attributedText: Binding<NSMutableAttributedString>) {
         self._attributedText = attributedText
         self.controller = UIViewController()
         self.textView = UITextView()
-        self.placeholder = placeholder
         self.accessoryView = CustomInputAccessoryView()
     }
     
@@ -43,7 +33,6 @@ struct CustomTextEditor: UIViewControllerRepresentable {
         setUpTextView()
         textView.delegate = context.coordinator
         textView.delegate?.textViewDidChange!(textView)
-//        textView.font = UIFont.systemFont(ofSize: FontSize.regular.rawValue)
         accessoryView.delegate = context.coordinator
         textView.inputAccessoryView = accessoryView
     
@@ -52,7 +41,7 @@ struct CustomTextEditor: UIViewControllerRepresentable {
     
     func updateUIViewController(_ uiViewController: UIViewController, context: Context) {
         accessoryView.frame = CGRect(x: 0,
-                                     y: -uiViewController.view.safeAreaInsets.bottom, 
+                                     y: -uiViewController.view.safeAreaInsets.bottom,
                                      width: 0,
                                      height: 48 + uiViewController.view.safeAreaInsets.bottom)
     }
@@ -205,7 +194,7 @@ extension Coordinator: CustomInputAccessoryViewDelegate {
     }
     
     private func getFontSize(attributes: [NSAttributedString.Key: Any]) -> CGFloat {
-        if let value = attributes[.font] as? UIFont {
+        if let _ = attributes[.font] as? UIFont {
             let fontSize = CTFontGetSize(attributes[.font] as! CTFont)
             return fontSize
         } else {

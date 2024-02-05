@@ -77,7 +77,7 @@ class CustomInputAccessoryView: UIView {
         var colorImage = UIImage(systemName: "circle.fill")
         button.setImage(colorImage, for: .normal)
         button.tintColor = selectedColor
-        button.addTarget(self, action: #selector(colorButtonTapped(currentColor:)), for: .touchUpInside)
+        button.addTarget(self, action: #selector(colorButtonTapped), for: .touchUpInside)
         return button
     }()
 
@@ -87,7 +87,7 @@ class CustomInputAccessoryView: UIView {
         button.titleLabel?.font = UIFont.systemFont(ofSize: 22)
         button.setTitle(title, for: .normal)
         button.tintColor = selectedColor
-        button.addTarget(self, action: #selector(fontSizeButtonTapped(currentSize:)),
+        button.addTarget(self, action: #selector(fontSizeButtonTapped),
                          for: .touchUpInside)
         return button
     }()
@@ -170,11 +170,11 @@ class CustomInputAccessoryView: UIView {
         delegate?.italicButtonTapped()
     }
 
-    @objc private func colorButtonTapped(currentColor: UIColor) {
+    @objc private func colorButtonTapped() {
         delegate?.colorButtonTapped(currentColor: selectedColor)
     }
 
-    @objc private func fontSizeButtonTapped(currentSize: CGFloat) {
+    @objc private func fontSizeButtonTapped() {
         delegate?.fontButtonTapped(currentSize: selectedFontSize)
     }
 

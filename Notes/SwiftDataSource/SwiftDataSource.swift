@@ -5,8 +5,8 @@
 //  Created by Lol Kek on 31/01/2024.
 //
 
-import SwiftData
 import Foundation
+import SwiftData
 
 final class ItemDataSource<T: PersistentModel> {
     private let modelContext: ModelContext
@@ -31,14 +31,5 @@ final class ItemDataSource<T: PersistentModel> {
 
     func removeItem(_ item: T) {
         modelContext.delete(item)
-    }
-    
-    func forceSave() {
-        do {
-          try modelContext.save()
-        } catch {
-            print("Error saving")
-        }
-       
     }
 }
